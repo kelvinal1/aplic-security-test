@@ -1,12 +1,12 @@
 package com.example.demo.Repository;
 
-package com.example.crud_segurity_aplication.models.ProductoModel;
+package com.example.demo.Models.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<ProductoModel, Long> {
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
     
 }

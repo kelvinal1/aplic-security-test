@@ -1,12 +1,12 @@
 package com.example.demo.Repository;
 
-package com.example.crud_segurity_aplication.models.TipoPagoModel;
+package com.example.demo.Models.TipoPago;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface TipoPagoRepository extends JpaRepository<TipoPagoModel, Long> {
+public interface TipoPagoRepository extends JpaRepository<TipoPago, Long> {
     
 }
