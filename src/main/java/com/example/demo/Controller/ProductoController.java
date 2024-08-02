@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Models.Producto;
+import com.example.demo.Repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class ProductoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Producto> findByPk(@PathVariable int id) {
-        return productoRepository.findById(id)
+        return productoRepository.findById((long) id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -30,19 +32,4 @@ public class ProductoController {
         return productoRepository.save(producto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Producto> update(@PathVariable int id, @RequestBody Producto productoDetails) {
-        return productoRepository.findById(id)
-                .map(producto -> {
-                    producto.setStock(productoDetails.getStock());
-                    producto.setPrecioUnitario(productoDetails.getPrecioUnitario());
-                    producto.setUnidad(productoDetails.getUnidad());
-                    producto.setIdClasificacion(productoDetails.getIdClasificacion());
-                    producto.setIdProveedor(productoDetails.getIdProveedor());
-                    producto.setIva(productoDetails.isIva());
-                    Producto updatedProducto = productoRepository.save(producto);
-                    return ResponseEntity.ok(updatedProducto);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
 }

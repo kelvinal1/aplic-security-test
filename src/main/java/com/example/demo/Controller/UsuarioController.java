@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Models.Usuario;
+import com.example.demo.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> findByPk(@PathVariable int id) {
-        return usuarioRepository.findById(id)
+        return usuarioRepository.findById((long) id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -30,16 +32,4 @@ public class UsuarioController {
         return usuarioRepository.save(usuario);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable int id, @RequestBody Usuario usuarioDetails) {
-        return usuarioRepository.findById(id)
-                .map(usuario -> {
-                    usuario.setUser(usuarioDetails.getUser());
-                    usuario.setPassword(usuarioDetails.getPassword());
-                    usuario.setIdPersona(usuarioDetails.getIdPersona());
-                    Usuario updatedUsuario = usuarioRepository.save(usuario);
-                    return ResponseEntity.ok(updatedUsuario);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
 }

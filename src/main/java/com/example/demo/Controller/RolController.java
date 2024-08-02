@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Models.Rol;
+import com.example.demo.Repository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class RolController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Rol> findByPk(@PathVariable int id) {
-        return rolRepository.findById(id)
+        return rolRepository.findById((long)id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -30,15 +32,4 @@ public class RolController {
         return rolRepository.save(rol);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Rol> update(@PathVariable int id, @RequestBody Rol rolDetails) {
-        return rolRepository.findById(id)
-                .map(rol -> {
-                    rol.setRol(rolDetails.getRol());
-                    rol.setEstado(rolDetails.isEstado());
-                    Rol updatedRol = rolRepository.save(rol);
-                    return ResponseEntity.ok(updatedRol);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
 }

@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Models.Proveedores;
+import com.example.demo.Repository.ProveedoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class ProveedoresController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Proveedores> findByPk(@PathVariable int id) {
-        return proveedoresRepository.findById(id)
+        return proveedoresRepository.findById((long) id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -30,18 +32,4 @@ public class ProveedoresController {
         return proveedoresRepository.save(proveedores);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Proveedores> update(@PathVariable int id, @RequestBody Proveedores proveedoresDetails) {
-        return proveedoresRepository.findById(id)
-                .map(proveedores -> {
-                    proveedores.setRuc(proveedoresDetails.getRuc());
-                    proveedores.setTelefono(proveedoresDetails.getTelefono());
-                    proveedores.setPais(proveedoresDetails.getPais());
-                    proveedores.setDireccion(proveedoresDetails.getDireccion());
-                    proveedores.setMoneda(proveedoresDetails.getMoneda());
-                    Proveedores updatedProveedores = proveedoresRepository.save(proveedores);
-                    return ResponseEntity.ok(updatedProveedores);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
 }

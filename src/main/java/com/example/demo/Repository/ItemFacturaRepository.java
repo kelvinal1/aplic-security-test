@@ -1,6 +1,6 @@
 package com.example.demo.Repository;
 
-package com.example.demo.Models.ItemFactura;
+import com.example.demo.Models.ItemFactura;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

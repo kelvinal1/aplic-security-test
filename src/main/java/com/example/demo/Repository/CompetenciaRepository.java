@@ -1,12 +1,12 @@
 package com.example.demo.Repository;
 
-package com.example.demo.Models.TipoPago;
+import com.example.demo.Models.Competencia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface TipoPagoRepository extends JpaRepository<TipoPago, Long> {
-    
+public interface CompetenciaRepository extends JpaRepository<Competencia, Long> {
+
 }

@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Models.TipoPago;
+import com.example.demo.Repository.TipoPagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class TipoPagoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TipoPago> findByPk(@PathVariable int id) {
-        return tipoPagoRepository.findById(id)
+        return tipoPagoRepository.findById((long) id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -30,15 +32,4 @@ public class TipoPagoController {
         return tipoPagoRepository.save(tipoPago);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<TipoPago> update(@PathVariable int id, @RequestBody TipoPago tipoPagoDetails) {
-        return tipoPagoRepository.findById(id)
-                .map(tipoPago -> {
-                    tipoPago.setTipo(tipoPagoDetails.getTipo());
-                    tipoPago.setDescrip(tipoPagoDetails.getDescrip());
-                    TipoPago updatedTipoPago = tipoPagoRepository.save(tipoPago);
-                    return ResponseEntity.ok(updatedTipoPago);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
 }
